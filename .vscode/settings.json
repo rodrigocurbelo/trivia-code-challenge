@@ -1,5 +1,7 @@
 {
   "cSpell.words": [
     "quotemark"
-  ]
+  ],
+  "editor.formatOnSave": true,
+  "javascript.format.enable": false
 }
