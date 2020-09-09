@@ -4,12 +4,12 @@ import { RootState } from '../../../shared/redux/setup/rootReducer'
 
 const CHANGE_COUNT = 'count/CHANGE_COUNT'
 
-interface setToOneAction extends Action {
+interface SetToTwoAsync extends Action {
   type: 'count/CHANGE_COUNT'
   payload: number
 }
 
-export const setToOne = (): setToOneAction => ({
+export const setToOne = (): SetToTwoAsync => ({
   type: CHANGE_COUNT,
   payload: 1,
 })
@@ -18,9 +18,9 @@ export const setToTwoAsync = (): ThunkAction<
   void,
   {},
   RootState,
-  setToOneAction
+  SetToTwoAsync
 > => {
-  return (dispatch: Dispatch<setToOneAction>) => {
+  return (dispatch: Dispatch<SetToTwoAsync>) => {
     return dispatch({
       type: CHANGE_COUNT,
       payload: 2,
@@ -29,11 +29,11 @@ export const setToTwoAsync = (): ThunkAction<
 }
 
 export interface DispatchProps {
-  setToOne: () => setToOneAction
-  setToTwoAsync: () => ThunkAction<void, {}, RootState, setToOneAction>
+  setToOne: () => SetToTwoAsync
+  setToTwoAsync: () => ThunkAction<void, {}, RootState, SetToTwoAsync>
 }
 
-export type ActionTypes = setToOneAction
+export type ActionTypes = SetToTwoAsync
 
 interface State {
   count: number
