@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import count, {
   DispatchProps as CountDispatchProps,
-} from '../../../components/Home/redux/count'
+} from '../../../modules/Home/redux/count'
 
 const rootReducer = combineReducers({
   count,
