@@ -2,12 +2,10 @@ import React from 'react'
 import { View } from 'react-native'
 
 import styles from './styles'
+import MultipleOptionHeader from '../MultipleOptionHeader'
 import { NavigationProps } from '../../../../shared/types/Navigation'
 import { mapDispatchToProps, mapStateToProps } from '../..'
-import {
-  LabelAndTitleHeader,
-  TrueFalseButtons,
-} from '../../../../shared/components/ui-core'
+import { TrueFalseButtons } from '../../../../shared/components/ui-core'
 import { getCurrentQuestionText } from '../../../../shared/helpers/questions'
 
 interface OwnProps extends NavigationProps {}
@@ -25,8 +23,7 @@ export default function MultipleOption({
 
   return (
     <View style={styles.container}>
-      <LabelAndTitleHeader
-        spacingOnTop
+      <MultipleOptionHeader
         label={getCurrentQuestionText(questionIndex)}
         title={data[questionIndex].question}
       />

@@ -1,12 +1,11 @@
 import React from 'react'
-import classNames from 'classnames'
 import { View } from 'react-native'
 
 import styles from './styles'
 import Title from '../Title'
 import Label from '../Label'
 
-interface Props {
+export interface Props {
   title: string
   label: string
   spacingOnTop?: boolean

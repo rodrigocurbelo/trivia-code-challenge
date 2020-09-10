@@ -41,7 +41,7 @@ export default {
     },
     boolean: {
       width: window.width / 2 - 40,
-      height: window.height / 3,
+      height: window.height / 2.8,
       defaultBackgroundColor: '#2E425A',
     },
   },
