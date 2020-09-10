@@ -1,14 +1,11 @@
 import { combineReducers } from 'redux'
 
-import count, {
-  DispatchProps as CountDispatchProps,
-} from '../../../modules/Home/redux/count'
+import game from '../game'
 
 const rootReducer = combineReducers({
-  count,
+  game,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
-export type KnownActions = CountDispatchProps
 
 export default rootReducer

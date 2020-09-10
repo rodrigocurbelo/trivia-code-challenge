@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View } from 'react-native'
 
 import styles from './styles'
-import { NavigationProps } from '../../../../shared/types/navigation'
+import { NavigationProps } from '../../../../shared/types/Navigation'
 import { mapDispatchToProps, mapStateToProps } from '../..'
-import RobotMenuSvg from '../../../../shared/components/svg/RobotMenu'
+import { RobotMenuSvg } from '../../../../shared/components/svg'
 import {
   LabelAndTitleHeader,
   StartButton,
@@ -16,7 +16,7 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-export default function Home({ navigation: { navigate } }: Props) {
+export default function Home({ startNewGame }: Props) {
   return (
     <View style={styles.container}>
       <LabelAndTitleHeader
@@ -27,7 +27,7 @@ export default function Home({ navigation: { navigate } }: Props) {
 
       <RobotMenuSvg />
 
-      <StartButton>Start</StartButton>
+      <StartButton onPress={startNewGame}>Start</StartButton>
     </View>
   )
 }

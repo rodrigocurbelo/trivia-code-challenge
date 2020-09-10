@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
-import Home from './components/Home'
+import MultipleOption from './components/MultipleOption'
 import * as gameActions from '../../shared/redux/game'
 import { DispatchProps as GameDispatchProps } from '../../shared/redux/game'
 import { RootState } from '../../shared/redux/setup/rootReducer'
@@ -21,4 +21,4 @@ export const mapDispatchToProps = (dispatch: Dispatch): GameDispatchProps => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(MultipleOption)

@@ -4,8 +4,9 @@ import theme from '../../../../theme'
 
 export default StyleSheet.create({
   container: {
-    height: theme.general.spacing * 7,
+    minHeight: theme.general.spacing * 7,
     justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
   spacingOnTop: {
     marginTop: theme.general.spacing * 8,

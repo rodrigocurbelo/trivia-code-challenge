@@ -9,7 +9,7 @@ interface Props {
   onPress: () => void
 }
 
-export default function StartButton({ children, onPress }: Props) {
+export default function BooleanButton({ children, onPress }: Props) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <ButtonText>{children}</ButtonText>

@@ -4,10 +4,11 @@ import theme from '../../../../theme'
 
 export default StyleSheet.create({
   container: {
-    width: theme.buttons.rounded.startGame.width,
-    height: theme.buttons.rounded.startGame.height,
+    width: theme.buttons.boolean.width,
+    height: theme.buttons.boolean.height,
+    alignItems: 'center',
     borderRadius: theme.buttons.borderRadius,
-    backgroundColor: theme.buttons.rounded.backgroundColor,
     justifyContent: 'center',
+    backgroundColor: theme.buttons.boolean.defaultBackgroundColor,
   },
 })

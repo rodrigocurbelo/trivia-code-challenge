@@ -1,24 +1,18 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import Home from './modules/Home'
-import { Routes } from './shared/constants/routes'
+import Results from './modules/Results'
+import MultipleOption from './modules/MultipleOption'
+import { Routes } from './shared/enums/routes'
+import { navigationRef } from './shared/routerService'
 
 const Stack = createStackNavigator()
 
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-    </View>
-  )
-}
-
 export default function Router() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         initialRouteName={Routes.Home}
         screenOptions={{
@@ -27,7 +21,8 @@ export default function Router() {
         }}
       >
         <Stack.Screen name={Routes.Home} component={Home} />
-        <Stack.Screen name={Routes.Details} component={DetailsScreen} />
+        <Stack.Screen name={Routes.MultipleOption} component={MultipleOption} />
+        <Stack.Screen name={Routes.Results} component={Results} />
       </Stack.Navigator>
     </NavigationContainer>
   )
