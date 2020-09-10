@@ -6,7 +6,10 @@ import Result from '../Result'
 import preventGoingBack from '../../../../shared/preventGoingBack'
 import { NavigationProps } from '../../../../shared/types/Navigation'
 import { mapDispatchToProps, mapStateToProps } from '../..'
-import { LabelAndTitleHeader } from '../../../../shared/components/ui-core'
+import {
+  LabelAndTitleHeader,
+  PlayAgainButton,
+} from '../../../../shared/components/ui-core'
 import {
   RobotMehSvg,
   RobotHuhSvg,
@@ -19,7 +22,7 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-function Results({ game: { data, answers } }: Props) {
+function Results({ startNewGame, game: { data, answers } }: Props) {
   const numberOfCorrectAnswers = Object.values(answers).filter((v) => v).length
 
   const renderRobot = () => {
@@ -53,6 +56,8 @@ function Results({ game: { data, answers } }: Props) {
           />
         ))}
       </ScrollView>
+
+      <PlayAgainButton onPress={startNewGame}>Play again</PlayAgainButton>
     </View>
   )
 }

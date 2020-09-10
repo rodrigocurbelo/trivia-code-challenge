@@ -70,7 +70,6 @@ export type ActionTypes = LoadDataAction & AnswerQuestionAction
 
 interface State {
   data: Question[]
-  dataLoaded: boolean
   currentGameFinished: boolean
   answers: {
     [key: number]: boolean
@@ -79,16 +78,15 @@ interface State {
 
 const initialState: State = {
   data: [],
-  dataLoaded: false,
-  currentGameFinished: false,
   answers: {},
+  currentGameFinished: false,
 }
 
 export default function (state = initialState, action: ActionTypes): State {
   switch (action.type) {
     case START_NEW_GAME:
       return {
-        ...state,
+        ...initialState,
         data: action.payload,
       }
 

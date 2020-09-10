@@ -1,13 +1,9 @@
 import React from 'react'
-import { NavigationContainerRef } from '@react-navigation/native'
+import { NavigationContainerRef, CommonActions } from '@react-navigation/native'
 
 export const navigationRef = React.createRef<NavigationContainerRef>()
 
-navigationRef.current?.addListener('beforeRemove', (e) => {
-  alert('hello')
-  e.preventDefault()
-})
-
 export function navigate(name: string, params?: any) {
+  navigationRef.current?.resetRoot()
   navigationRef.current?.navigate(name, params)
 }

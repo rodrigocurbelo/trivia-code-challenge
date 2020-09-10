@@ -44,6 +44,10 @@ export default {
       height: window.height / 2.8,
       defaultBackgroundColor: '#2E425A',
     },
+    playAgain: {
+      height: 55,
+      backgroundColor: '#1AB2D2',
+    },
   },
   result: {
     wrongAnswerBorderColor: '#D34819',
