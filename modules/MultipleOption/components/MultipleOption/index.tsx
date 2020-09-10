@@ -1,4 +1,5 @@
 import React from 'react'
+import he from 'he'
 import { View } from 'react-native'
 
 import styles from './styles'
@@ -22,7 +23,7 @@ function MultipleOption({ route, answerQuestion, game: { data } }: Props) {
     <View style={styles.container}>
       <MultipleOptionHeader
         label={getCurrentQuestionText(questionIndex)}
-        title={data[questionIndex].question}
+        title={he.unescape(data[questionIndex].question)}
       />
 
       <TrueFalseButtons

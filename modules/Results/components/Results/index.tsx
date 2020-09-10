@@ -1,4 +1,5 @@
 import React from 'react'
+import he from 'he'
 import { View, ScrollView } from 'react-native'
 
 import styles from './styles'
@@ -50,7 +51,7 @@ function Results({ startNewGame, game: { data, answers } }: Props) {
         {Object.keys(answers).map((questionIndex: string) => (
           <Result
             key={questionIndex}
-            question={data[+questionIndex].question}
+            question={he.unescape(data[+questionIndex].question)}
             wasItCorrect={answers[+questionIndex]}
             questionIndex={+questionIndex}
           />
