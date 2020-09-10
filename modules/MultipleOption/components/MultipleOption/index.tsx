@@ -2,6 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 import styles from './styles'
+import preventGoingBack from '../../../../shared/preventGoingBack'
 import MultipleOptionHeader from '../MultipleOptionHeader'
 import { NavigationProps } from '../../../../shared/types/Navigation'
 import { mapDispatchToProps, mapStateToProps } from '../..'
@@ -14,11 +15,7 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-export default function MultipleOption({
-  route,
-  answerQuestion,
-  game: { data },
-}: Props) {
+function MultipleOption({ route, answerQuestion, game: { data } }: Props) {
   const questionIndex = route.params.questionIndex
 
   return (
@@ -39,3 +36,5 @@ export default function MultipleOption({
     </View>
   )
 }
+
+export default preventGoingBack(MultipleOption)

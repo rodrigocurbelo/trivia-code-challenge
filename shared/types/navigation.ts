@@ -8,6 +8,7 @@ export interface NavigationProps {
   navigation: {
     goBack: () => void
     navigate: (route: Routes) => void
+    addListener: (event: string, cb: (e: any) => void) => void
   }
   route: {
     params: any

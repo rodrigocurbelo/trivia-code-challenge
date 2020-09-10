@@ -10,6 +10,7 @@ export default function App() {
   return (
     <Provider store={configureStore()}>
       <StatusBar hidden />
+
       <Router />
     </Provider>
   )

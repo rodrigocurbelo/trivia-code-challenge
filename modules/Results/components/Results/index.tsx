@@ -3,14 +3,15 @@ import { View, ScrollView } from 'react-native'
 
 import styles from './styles'
 import Result from '../Result'
+import preventGoingBack from '../../../../shared/preventGoingBack'
+import { NavigationProps } from '../../../../shared/types/Navigation'
+import { mapDispatchToProps, mapStateToProps } from '../..'
+import { LabelAndTitleHeader } from '../../../../shared/components/ui-core'
 import {
   RobotMehSvg,
   RobotHuhSvg,
   RobotGreatSvg,
 } from '../../../../shared/components/svg'
-import { NavigationProps } from '../../../../shared/types/Navigation'
-import { mapDispatchToProps, mapStateToProps } from '../..'
-import { LabelAndTitleHeader } from '../../../../shared/components/ui-core'
 
 interface OwnProps extends NavigationProps {}
 
@@ -18,7 +19,7 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-export default function Results({ game: { data, answers } }: Props) {
+function Results({ game: { data, answers } }: Props) {
   const numberOfCorrectAnswers = Object.values(answers).filter((v) => v).length
 
   const renderRobot = () => {
@@ -55,3 +56,5 @@ export default function Results({ game: { data, answers } }: Props) {
     </View>
   )
 }
+
+export default preventGoingBack(Results)
