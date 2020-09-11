@@ -9,3 +9,6 @@ export { default as LabelAndTitleHeader } from './texts/LabelAndTitleHeader'
 export { default as StartButton } from './buttons/StartButton'
 export { default as PlayAgainButton } from './buttons/PlayAgainButton'
 export { default as TrueFalseButtons } from './buttons/TrueFalseButtons'
+
+// AnimatedSVG
+export * from './Animated'

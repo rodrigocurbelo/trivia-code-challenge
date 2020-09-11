@@ -3,6 +3,9 @@ import { Dimensions } from 'react-native'
 
 const window = Dimensions.get('window')
 
+const primaryColor = '#1AB2D2'
+const secondaryColor = '#2E425A'
+
 export default {
   general: {
     spacing: 8, // All margins and paddings should be a multiple of this property.
@@ -10,6 +13,14 @@ export default {
   layout: {
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#1A2A3B',
+  },
+  robot: {
+    headColor: primaryColor,
+    headShadowColor: '#007B95',
+    neckAndEarsColor: secondaryColor,
+    facialFeaturesColor: '#19141E',
+    speechBubblesTextColor: '#212121',
+    speechBubblesBackgroundColor: '#fff',
   },
   text: {
     title: {
@@ -33,7 +44,7 @@ export default {
   buttons: {
     borderRadius: 17,
     rounded: {
-      backgroundColor: '#1AB2D2',
+      backgroundColor: primaryColor,
       startGame: {
         width: 180,
         height: 55,
@@ -42,17 +53,17 @@ export default {
     boolean: {
       width: window.width / 2 - 40,
       height: window.height / 2.8,
-      defaultBackgroundColor: '#2E425A',
-      trueBackgroundColor: '#1AB2D2',
+      defaultBackgroundColor: secondaryColor,
+      trueBackgroundColor: primaryColor,
       falseBackgroundColor: '#D34819',
     },
     playAgain: {
       height: 55,
-      backgroundColor: '#1AB2D2',
+      backgroundColor: primaryColor,
     },
   },
   result: {
     wrongAnswerBorderColor: '#D34819',
-    correctAnswerBorderColor: '#2E425A',
+    correctAnswerBorderColor: secondaryColor,
   },
 }
