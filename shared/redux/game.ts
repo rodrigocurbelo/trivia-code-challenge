@@ -19,8 +19,8 @@ interface LoadDataAction extends Action {
 interface AnswerQuestionAction extends Action {
   type: 'game/ANSWER_QUESTION'
   payload: {
+    answer: string
     questionIndex: number
-    wasItCorrect: boolean
   }
 }
 
@@ -41,19 +41,19 @@ export const startNewGame = (): startNewGameReturnType => {
 
 export const answerQuestion = (
   questionIndex: number,
-  wasItCorrect: boolean
+  answer: string
 ): AnswerQuestionAction => {
-  if (questionIndex + 1 < amountOfQuestionsPerGame) {
-    navigate(Routes.MultipleOption, { questionIndex: questionIndex + 1 })
-  } else {
-    navigate(Routes.Results)
-  }
+  // if (questionIndex + 1 < amountOfQuestionsPerGame) {
+  //   navigate(Routes.MultipleOption, { questionIndex: questionIndex + 1 })
+  // } else {
+  //   navigate(Routes.Results)
+  // }
 
   return {
     type: ANSWER_QUESTION,
     payload: {
+      answer,
       questionIndex,
-      wasItCorrect,
     },
   }
 }
@@ -62,7 +62,7 @@ export interface DispatchProps {
   startNewGame: () => startNewGameReturnType
   answerQuestion: (
     questionIndex: number,
-    wasItCorrect: boolean
+    answer: string
   ) => AnswerQuestionAction
 }
 
@@ -72,7 +72,7 @@ interface State {
   data: Question[]
   currentGameFinished: boolean
   answers: {
-    [key: number]: boolean
+    [key: number]: string
   }
 }
 
@@ -95,7 +95,7 @@ export default function (state = initialState, action: ActionTypes): State {
         ...state,
         answers: {
           ...state.answers,
-          [action.payload.questionIndex]: action.payload.wasItCorrect,
+          [action.payload.questionIndex]: action.payload.answer,
         },
       }
 

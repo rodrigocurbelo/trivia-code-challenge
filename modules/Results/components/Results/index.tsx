@@ -24,7 +24,9 @@ type Props = OwnProps &
   ReturnType<typeof mapDispatchToProps>
 
 function Results({ startNewGame, game: { data, answers } }: Props) {
-  const numberOfCorrectAnswers = Object.values(answers).filter((v) => v).length
+  const numberOfCorrectAnswers = Object.values(answers).filter(
+    (answer, i) => data[i].correct_answer === answer
+  ).length
 
   const renderRobot = () => {
     if (numberOfCorrectAnswers <= 4) {
@@ -52,8 +54,10 @@ function Results({ startNewGame, game: { data, answers } }: Props) {
           <Result
             key={questionIndex}
             question={he.unescape(data[+questionIndex].question)}
-            wasItCorrect={answers[+questionIndex]}
             questionIndex={+questionIndex}
+            wasItCorrect={
+              answers[+questionIndex] === data[+questionIndex].correct_answer
+            }
           />
         ))}
       </ScrollView>

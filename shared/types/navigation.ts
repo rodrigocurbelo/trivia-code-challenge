@@ -7,7 +7,7 @@ import { Routes } from '../enums/routes'
 export interface NavigationProps {
   navigation: {
     goBack: () => void
-    navigate: (route: Routes) => void
+    navigate: (route: Routes, params?: any) => void
     addListener: (event: string, cb: (e: any) => void) => void
   }
   route: {
