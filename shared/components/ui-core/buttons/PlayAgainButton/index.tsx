@@ -5,13 +5,22 @@ import ButtonText from '../../texts/ButtonText'
 import { TouchableOpacity } from 'react-native'
 
 interface Props {
-  children: ReactNode
   onPress: () => void
+  children: ReactNode
+  disabled?: boolean
 }
 
-export default function PlayAgainButton({ children, onPress }: Props) {
+export default function PlayAgainButton({
+  children,
+  disabled,
+  onPress,
+}: Props) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      disabled={disabled}
+    >
       <ButtonText>{children}</ButtonText>
     </TouchableOpacity>
   )

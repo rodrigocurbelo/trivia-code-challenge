@@ -7,15 +7,12 @@ import Result from '../Result'
 import preventGoingBack from '../../../../shared/preventGoingBack'
 import { NavigationProps } from '../../../../shared/types/Navigation'
 import { mapDispatchToProps, mapStateToProps } from '../..'
+import { RobotFeedback } from '../../../../shared/components/svg'
+import { FacialExpression } from '../../../../shared/components/svg/RobotFeedback'
 import {
   LabelAndTitleHeader,
   PlayAgainButton,
 } from '../../../../shared/components/ui-core'
-import {
-  RobotMehSvg,
-  RobotHuhSvg,
-  RobotGreatSvg,
-} from '../../../../shared/components/svg'
 
 interface OwnProps extends NavigationProps {}
 
@@ -23,21 +20,26 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-function Results({ startNewGame, game: { data, answers } }: Props) {
+function Results({
+  startNewGame,
+  game: { stillFetchingData, data, answers },
+}: Props) {
+  const playAgainDisabled =
+    stillFetchingData || !answers[Object.keys(answers).length - 1]
   const numberOfCorrectAnswers = Object.values(answers).filter(
     (answer, i) => data[i].correct_answer === answer
   ).length
 
   const renderRobot = () => {
     if (numberOfCorrectAnswers <= 4) {
-      return <RobotHuhSvg />
+      return <RobotFeedback facialExpressionType={FacialExpression.Huh} />
     }
 
     if (numberOfCorrectAnswers <= 6) {
-      return <RobotMehSvg />
+      return <RobotFeedback facialExpressionType={FacialExpression.Meh} />
     }
 
-    return <RobotGreatSvg />
+    return <RobotFeedback facialExpressionType={FacialExpression.Great} />
   }
 
   return (
@@ -62,7 +64,9 @@ function Results({ startNewGame, game: { data, answers } }: Props) {
         ))}
       </ScrollView>
 
-      <PlayAgainButton onPress={startNewGame}>Play again</PlayAgainButton>
+      <PlayAgainButton disabled={playAgainDisabled} onPress={startNewGame}>
+        Play again
+      </PlayAgainButton>
     </View>
   )
 }

@@ -6,11 +6,12 @@ import ButtonText from '../../texts/ButtonText'
 import { animateTiming } from '../../../../helpers/animations'
 
 interface Props {
-  children: ReactNode
   onPress: () => void
+  children: ReactNode
+  disabled?: boolean
 }
 
-export default function StartButton({ children, onPress }: Props) {
+export default function StartButton({ children, disabled, onPress }: Props) {
   const buttonScaleAnimatedValue = useMemo(() => new Animated.Value(0), [])
 
   useEffect(() => {
@@ -36,7 +37,11 @@ export default function StartButton({ children, onPress }: Props) {
         ],
       }}
     >
-      <TouchableOpacity onPress={onPress} style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={onPress}
+        disabled={disabled}
+      >
         <ButtonText>{children}</ButtonText>
       </TouchableOpacity>
     </Animated.View>

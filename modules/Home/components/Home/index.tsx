@@ -7,9 +7,12 @@ import { mapDispatchToProps, mapStateToProps } from '../..'
 import { RobotMenuSvg } from '../../../../shared/components/svg'
 import { animateTiming } from '../../../../shared/helpers/animations'
 import {
-  LabelAndTitleHeader,
   StartButton,
+  LabelAndTitleHeader,
 } from '../../../../shared/components/ui-core'
+import RobotFeedback, {
+  FacialExpression,
+} from '../../../../shared/components/svg/RobotFeedback'
 
 interface OwnProps extends NavigationProps {}
 
@@ -17,8 +20,12 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-export default function Home({ startNewGame }: Props) {
+export default function Home({
+  startNewGame,
+  game: { data, answers, stillFetchingData },
+}: Props) {
   const homeEntryAnimatedValue = useMemo(() => new Animated.Value(0), [])
+  const startButtonDisabled = stillFetchingData || (data.length && !answers[0])
 
   useEffect(() => {
     animateTiming(homeEntryAnimatedValue, 1, 300, 2300, true).start()
@@ -26,11 +33,7 @@ export default function Home({ startNewGame }: Props) {
 
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={{
-          opacity: homeEntryAnimatedValue,
-        }}
-      >
+      <Animated.View style={{ opacity: homeEntryAnimatedValue }}>
         <LabelAndTitleHeader
           spacingOnTop
           label="Welcome to"
@@ -40,12 +43,10 @@ export default function Home({ startNewGame }: Props) {
 
       <RobotMenuSvg />
 
-      <Animated.View
-        style={{
-          opacity: homeEntryAnimatedValue,
-        }}
-      >
-        <StartButton onPress={startNewGame}>Start</StartButton>
+      <Animated.View style={{ opacity: homeEntryAnimatedValue }}>
+        <StartButton onPress={startNewGame} disabled={!!startButtonDisabled}>
+          Start
+        </StartButton>
       </Animated.View>
     </View>
   )

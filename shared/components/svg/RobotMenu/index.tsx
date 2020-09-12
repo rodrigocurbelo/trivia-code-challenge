@@ -75,7 +75,6 @@ export default function RobotMenuSvg() {
 
         <RobotMenuBubbles />
       </G>
-      <Defs></Defs>
     </Svg>
   )
 }

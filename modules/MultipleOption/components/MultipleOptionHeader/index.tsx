@@ -3,7 +3,7 @@ import { View, Dimensions, Animated, Text } from 'react-native'
 
 import styles from './styles'
 import theme from '../../../../shared/theme'
-import { RobotHuhSvg, RobotGreatSvg } from '../../../../shared/components/svg'
+import { RobotFeedback } from '../../../../shared/components/svg'
 import LabelAndTitleHeader, {
   Props as LabelAndTitleHeaderProps,
 } from '../../../../shared/components/ui-core/texts/LabelAndTitleHeader'
@@ -12,6 +12,7 @@ import {
   opacityAndScaleAnimation,
   opacityAndTranslateYAnimation,
 } from '../../../../shared/helpers/animations'
+import { FacialExpression } from '../../../../shared/components/svg/RobotFeedback'
 
 export enum AnswerType {
   Wrong,
@@ -94,14 +95,20 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
       <Animated.View
         style={[styles.robotHuh, { left: robotHuhXAnimatedValue }]}
       >
-        <RobotHuhSvg hideSpeechBubble />
+        <RobotFeedback
+          facialExpressionType={FacialExpression.Huh}
+          hideSpeechBubble
+        />
       </Animated.View>
 
       <Animated.View
         style={[styles.robotGreat, { left: robotGreatXAnimatedValue }]}
       >
         <View style={styles.robotGreatContainer}>
-          <RobotGreatSvg hideSpeechBubble />
+          <RobotFeedback
+            facialExpressionType={FacialExpression.Great}
+            hideSpeechBubble
+          />
         </View>
       </Animated.View>
 

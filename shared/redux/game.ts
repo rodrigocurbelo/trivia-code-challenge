@@ -6,14 +6,18 @@ import { fetchGameData } from '../networking/game'
 import { GameData, Question } from '../types/GameData'
 import { navigate } from '../routerService'
 import { Routes } from '../enums/routes'
-import { amountOfQuestionsPerGame } from '../constants/gameSettings'
 
 const START_NEW_GAME = 'game/START_NEW_GAME'
 const ANSWER_QUESTION = 'game/ANSWER_QUESTION'
+const ATTEMPT_TO_FETCH_DATA = 'game/ATTEMPT_TO_FETCH_DATA'
 
 interface LoadDataAction extends Action {
   type: 'game/START_NEW_GAME'
   payload: Question[]
+}
+
+interface AttemptToFetchData extends Action {
+  type: 'game/ATTEMPT_TO_FETCH_DATA'
 }
 
 interface AnswerQuestionAction extends Action {
@@ -24,10 +28,19 @@ interface AnswerQuestionAction extends Action {
   }
 }
 
-type startNewGameReturnType = ThunkAction<void, {}, RootState, LoadDataAction>
+type startNewGameReturnType = ThunkAction<
+  void,
+  {},
+  RootState,
+  LoadDataAction | AttemptToFetchData
+>
 
 export const startNewGame = (): startNewGameReturnType => {
-  return (dispatch: Dispatch<LoadDataAction>) => {
+  return (dispatch: Dispatch<LoadDataAction | AttemptToFetchData>) => {
+    dispatch({
+      type: ATTEMPT_TO_FETCH_DATA,
+    })
+
     return fetchGameData().then((data: GameData) => {
       dispatch({
         type: START_NEW_GAME,
@@ -43,12 +56,6 @@ export const answerQuestion = (
   questionIndex: number,
   answer: string
 ): AnswerQuestionAction => {
-  // if (questionIndex + 1 < amountOfQuestionsPerGame) {
-  //   navigate(Routes.MultipleOption, { questionIndex: questionIndex + 1 })
-  // } else {
-  //   navigate(Routes.Results)
-  // }
-
   return {
     type: ANSWER_QUESTION,
     payload: {
@@ -70,6 +77,7 @@ export type ActionTypes = LoadDataAction & AnswerQuestionAction
 
 interface State {
   data: Question[]
+  stillFetchingData: boolean
   currentGameFinished: boolean
   answers: {
     [key: number]: string
@@ -79,15 +87,23 @@ interface State {
 const initialState: State = {
   data: [],
   answers: {},
+  stillFetchingData: false,
   currentGameFinished: false,
 }
 
 export default function (state = initialState, action: ActionTypes): State {
   switch (action.type) {
+    case ATTEMPT_TO_FETCH_DATA:
+      return {
+        ...state,
+        stillFetchingData: true,
+      }
+
     case START_NEW_GAME:
       return {
         ...initialState,
         data: action.payload,
+        stillFetchingData: false,
       }
 
     case ANSWER_QUESTION:
