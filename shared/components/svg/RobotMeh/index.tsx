@@ -1,9 +1,16 @@
 import * as React from 'react'
 import Svg, { G, Path, Defs } from 'react-native-svg'
 
+import theme from '../../../theme'
+
 export default function RobotMeh() {
   return (
-    <Svg width={200} height={183} viewBox="0 0 241 219" fill="none">
+    <Svg
+      fill="none"
+      width={theme.robot.sizes.feedback.width}
+      height={theme.robot.sizes.feedback.height}
+      viewBox="0 0 241 219"
+    >
       <G>
         <G>
           <Path

@@ -21,6 +21,16 @@ export default {
     facialFeaturesColor: '#19141E',
     speechBubblesTextColor: '#212121',
     speechBubblesBackgroundColor: '#fff',
+    sizes: {
+      menu: {
+        width: window.width,
+        height: window.width - 100,
+      },
+      feedback: {
+        width: 200,
+        height: 183,
+      },
+    },
   },
   text: {
     title: {

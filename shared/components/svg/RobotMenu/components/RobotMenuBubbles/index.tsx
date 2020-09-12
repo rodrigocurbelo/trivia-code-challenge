@@ -2,13 +2,13 @@ import React, { useEffect, useMemo } from 'react'
 import { G, Path } from 'react-native-svg'
 import { Animated } from 'react-native'
 
-import { AnimatedGroup } from '../../../../ui-core'
 import theme from '../../../../../theme'
-import {
-  animateIndividual,
-  getSpeechBubbleAnimation,
-} from '../../helpers/animations'
+import { AnimatedGroup } from '../../../../ui-core'
 import { ROBOT_MENU_TIMING } from '../../../../../constants/robotMenuAnimations'
+import {
+  animateTiming,
+  opacityAndTranslateYAnimation,
+} from '../../../../../helpers/animations'
 
 export default function RobotMenuBubbles() {
   const [bubble1AnimatedValue, bubble2AnimatedValue] = useMemo(
@@ -19,16 +19,24 @@ export default function RobotMenuBubbles() {
   const { duration, topDelay, bottomDelay } = ROBOT_MENU_TIMING.bubbles
 
   useEffect(() => {
-    animateIndividual(bubble1AnimatedValue, 1, duration, topDelay).start(() => {
-      animateIndividual(bubble2AnimatedValue, 1, duration, bottomDelay).start()
-    })
+    animateTiming(bubble1AnimatedValue, 1, duration, topDelay, true).start(
+      () => {
+        animateTiming(
+          bubble2AnimatedValue,
+          1,
+          duration,
+          bottomDelay,
+          true
+        ).start()
+      }
+    )
   }, [])
 
   return (
     <G>
       {/* Speech bubble top */}
       <AnimatedGroup
-        style={getSpeechBubbleAnimation(bubble1AnimatedValue, [30, 0])}
+        style={opacityAndTranslateYAnimation(bubble1AnimatedValue, [30, 0])}
       >
         {/* Speech bubble top shape */}
         <Path
@@ -47,7 +55,7 @@ export default function RobotMenuBubbles() {
 
       {/* Speech bubble bottom */}
       <AnimatedGroup
-        style={getSpeechBubbleAnimation(bubble2AnimatedValue, [-30, 0])}
+        style={opacityAndTranslateYAnimation(bubble2AnimatedValue, [-30, 0])}
       >
         {/* Speech bubble bottom shape */}
         <Path

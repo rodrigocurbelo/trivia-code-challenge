@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "tslint -p tsconfig.json components/**/*.{ts,tsx}"
+    "lint": "tslint -p **/*.{ts,tsx}"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import he from 'he'
 import { View } from 'react-native'
 
 import styles from './styles'
 import preventGoingBack from '../../../../shared/preventGoingBack'
-import MultipleOptionHeader from '../MultipleOptionHeader'
+import MultipleOptionHeader, { AnswerType } from '../MultipleOptionHeader'
 import { NavigationProps } from '../../../../shared/types/Navigation'
 import { mapDispatchToProps, mapStateToProps } from '../..'
 import { TrueFalseButtons } from '../../../../shared/components/ui-core'
@@ -25,6 +25,8 @@ function MultipleOption({
   navigation: { navigate },
 }: Props) {
   const questionIndex = route.params.questionIndex
+  const isCurrentAnswerCorrect =
+    answers[questionIndex] === data[questionIndex].correct_answer
 
   const onPress = (answer: string) => {
     answerQuestion(questionIndex, answer)
@@ -35,7 +37,15 @@ function MultipleOption({
       } else {
         navigate(Routes.Results)
       }
-    }, 3000)
+    }, 2500)
+  }
+
+  let answerType
+
+  if (!answers[questionIndex]) {
+    answerType = AnswerType.NotAnsweredYet
+  } else {
+    answerType = isCurrentAnswerCorrect ? AnswerType.Correct : AnswerType.Wrong
   }
 
   return (
@@ -43,6 +53,7 @@ function MultipleOption({
       <MultipleOptionHeader
         label={getCurrentQuestionText(questionIndex)}
         title={he.unescape(data[questionIndex].question)}
+        answerType={answerType}
       />
 
       <TrueFalseButtons

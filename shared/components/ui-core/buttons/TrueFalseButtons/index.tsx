@@ -1,20 +1,20 @@
 import React, { useMemo } from 'react'
 import { View } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native'
 import { Animated } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
 
 import styles from './styles'
+import theme from '../../../../theme'
 import BooleanButton from '../BooleanButton'
 import { BooleanOptionType } from '../../../../enums/game'
-import theme from '../../../../theme'
+import { animateTiming } from '../../../../helpers/animations'
 import {
   CLICKED_OPTION_DURATION,
   ALTERNATING_OPTIONS_DURATION,
 } from '../../../../constants/MultipleOptionAnimations'
 import {
-  getAnimatedTransform,
+  getAnimatedInterpolation,
   getAnimatedBackground,
-  animateIndividualBooleanButton,
 } from './helpers/animations'
 
 interface Props {
@@ -39,8 +39,8 @@ export default function TrueFalseButtons({
         duration = ALTERNATING_OPTIONS_DURATION / 2
       ) => {
         return Animated.parallel([
-          animateIndividualBooleanButton(animatedTrueValue, toValue, duration),
-          animateIndividualBooleanButton(
+          animateTiming(animatedTrueValue, toValue, duration),
+          animateTiming(
             animatedFalseValue,
             invertFalse ? 1 - toValue : toValue,
             duration
@@ -89,7 +89,7 @@ export default function TrueFalseButtons({
           onPress={() => onPress(BooleanOptionType.True)}
           disabled={!!answerForCurrentQuestion}
           style={{
-            transform: getAnimatedTransform(animatedTrueValue),
+            transform: [{ scale: getAnimatedInterpolation(animatedTrueValue) }],
             backgroundColor: getAnimatedBackground(
               animatedTrueValue,
               theme.buttons.boolean.trueBackgroundColor
@@ -105,7 +105,9 @@ export default function TrueFalseButtons({
           onPress={() => onPress(BooleanOptionType.False)}
           disabled={!!answerForCurrentQuestion}
           style={{
-            transform: getAnimatedTransform(animatedFalseValue),
+            transform: [
+              { scale: getAnimatedInterpolation(animatedFalseValue) },
+            ],
             backgroundColor: getAnimatedBackground(
               animatedFalseValue,
               theme.buttons.boolean.falseBackgroundColor

@@ -1,18 +1,19 @@
 import React from 'react'
 import Svg, { G, Path, Defs } from 'react-native-svg'
-import { Dimensions } from 'react-native'
+
+import theme from '../../../theme'
 import RobotMenuFace from './components/RobotMenuFace'
 import RobotMenuBubbles from './components/RobotMenuBubbles'
-import theme from '../../../theme'
-
-const windowWidth = Dimensions.get('window').width
 
 export default function RobotMenuSvg() {
   return (
     <Svg
-      style={{ height: windowWidth - 100, width: windowWidth }}
-      viewBox="0 0 329 334"
       fill="none"
+      viewBox="0 0 329 334"
+      style={{
+        width: theme.robot.sizes.menu.width,
+        height: theme.robot.sizes.menu.height,
+      }}
     >
       <G>
         {/* Antenna */}

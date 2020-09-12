@@ -12,24 +12,9 @@ export const getAnimatedBackground = (
   })
 }
 
-export const getAnimatedTransform = (animatedValue: Animated.Value) => {
-  const scaleInterpolation = animatedValue.interpolate({
+export const getAnimatedInterpolation = (animatedValue: Animated.Value) => {
+  return animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: [1, 1.1],
-  })
-
-  return [{ scaleX: scaleInterpolation }, { scaleY: scaleInterpolation }]
-}
-
-export const animateIndividualBooleanButton = (
-  animatedValue: Animated.Value,
-  modifiedToValue: number,
-  duration: number
-) => {
-  return Animated.timing(animatedValue, {
-    toValue: modifiedToValue,
-    duration,
-    easing: Easing.ease,
-    useNativeDriver: false,
   })
 }

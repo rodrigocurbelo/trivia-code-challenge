@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo } from 'react'
 import { G, Path, Ellipse } from 'react-native-svg'
 import { Animated } from 'react-native'
-import { getEyesAnimation, animateIndividual } from '../../helpers/animations'
+
 import theme from '../../../../../theme'
+import { getEyesAnimation } from '../../helpers/animations'
 import { ROBOT_MENU_TIMING } from '../../../../../constants/robotMenuAnimations'
+import { animateTiming } from '../../../../../helpers/animations'
 import {
   AnimatedPath,
   AnimatedGroup,
@@ -22,35 +24,39 @@ export default function RobotMenuFace() {
   } = ROBOT_MENU_TIMING
 
   useEffect(() => {
-    animateIndividual(
+    animateTiming(
       pupilsXYAnimatedValue,
       { x: 1, y: -3 },
       lookAtBubble.up,
-      lookAtBubble.upDelay
+      lookAtBubble.upDelay,
+      true
     ).start(() => {
-      animateIndividual(
+      animateTiming(
         pupilsXYAnimatedValue,
         { x: -1, y: 3 },
         lookAtBubble.down,
-        lookAtBubble.downDelay
+        lookAtBubble.downDelay,
+        true
       ).start(() => {
         const triggerEyes = (toValue: number, delay = 0) => {
-          animateIndividual(
+          animateTiming(
             eyesAnimatedValue,
             toValue,
             eyes.bouncing,
-            delay
+            delay,
+            true
           ).start(() => triggerEyes(toValue === 1 ? 0 : 1))
         }
 
         const triggerPupils = (lookAtUser: boolean) => {
-          animateIndividual(
+          animateTiming(
             pupilsXYAnimatedValue,
             { y: lookAtUser ? 0 : 3, x: 0 },
             lookAtButton.duration,
             lookAtUser
               ? lookAtButton.lookAtButtonDelay
-              : lookAtButton.lookAtUserDelay
+              : lookAtButton.lookAtUserDelay,
+            true
           ).start(() => triggerPupils(!lookAtUser))
         }
 
