@@ -3,7 +3,7 @@ import { G, Path, Ellipse } from 'react-native-svg'
 import { Animated } from 'react-native'
 
 import theme from '../../../../../theme'
-import { getEyesAnimation } from '../../helpers/animations'
+import { getEyesAnimation } from '../../../../../helpers/animations'
 import { ROBOT_MENU_TIMING } from '../../../../../constants/robotMenuAnimations'
 import { animateTiming } from '../../../../../helpers/animations'
 import {
@@ -88,19 +88,19 @@ export default function RobotMenuFace() {
       <AnimatedGroup style={getEyesAnimation(eyesAnimatedValue, [0, -2])}>
         {/* Left eye */}
         <Ellipse
-          cx="134.954"
-          cy="166.135"
-          rx="11.3636"
-          ry="11.3495"
+          cx={134.954}
+          cy={166.135}
+          rx={11.3636}
+          ry={11.3495}
           fill={theme.robot.facialFeaturesColor}
         />
 
         {/* Left eye pupil */}
         <AnimatedEllipse
-          cx="134.955"
-          cy="166.675"
-          rx="4.54546"
-          ry="4.53979"
+          cx={134.955}
+          cy={166.675}
+          rx={4.54546}
+          ry={4.53979}
           fill={theme.robot.headColor}
           style={{
             transform: pupilsXYAnimatedValue.getTranslateTransform(),
@@ -109,19 +109,19 @@ export default function RobotMenuFace() {
 
         {/* Right eye */}
         <Ellipse
-          cx="171.318"
-          cy="166.135"
-          rx="11.3636"
-          ry="11.3495"
+          cx={171.318}
+          cy={166.135}
+          rx={11.3636}
+          ry={11.3495}
           fill={theme.robot.facialFeaturesColor}
         />
 
         {/* Right eye pupil */}
         <AnimatedEllipse
-          cx="171.318"
-          cy="166.675"
-          rx="4.54546"
-          ry="4.53979"
+          cx={171.318}
+          cy={166.675}
+          rx={4.54546}
+          ry={4.53979}
           fill={theme.robot.headColor}
           style={{
             transform: pupilsXYAnimatedValue.getTranslateTransform(),

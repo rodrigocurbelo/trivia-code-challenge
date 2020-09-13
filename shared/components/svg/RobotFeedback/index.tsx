@@ -16,12 +16,14 @@ const textPathDefinitions = {
 }
 
 interface Props {
+  animate?: boolean
   hideSpeechBubble?: boolean
   facialExpressionType: FacialExpression
   speechBubbleOpacity?: number | Animated.AnimatedInterpolation
 }
 
 export default function RobotFeedback({
+  animate,
   hideSpeechBubble = false,
   speechBubbleOpacity,
   facialExpressionType,
@@ -113,7 +115,7 @@ export default function RobotFeedback({
           fill="#2E425A"
         />
 
-        <FaceAndSpeechText />
+        <FaceAndSpeechText animate={animate} />
       </G>
     </Svg>
   )

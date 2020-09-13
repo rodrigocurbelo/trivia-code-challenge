@@ -44,10 +44,12 @@ function Results({
     (answer, i) => data[i].correct_answer === answer
   ).length
 
-  const onScrollEnd = ({
-    nativeEvent: { contentOffset },
-  }: NativeSyntheticEvent<NativeScrollEvent>) => {
-    finishUpScrollAnimation(contentOffset.y, scrollY, scrollViewRef)
+  const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    finishUpScrollAnimation(
+      event?.nativeEvent?.contentOffset?.y,
+      scrollY,
+      scrollViewRef
+    )
   }
 
   return (
@@ -67,7 +69,7 @@ function Results({
         style={styles.scrollView}
         scrollEventThrottle={16}
         contentContainerStyle={styles.scrollViewContainer}
-        onMomentumScrollEnd={_.throttle(onScrollEnd, 300, { leading: true })}
+        onMomentumScrollEnd={onScrollEnd}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: false }
@@ -89,6 +91,7 @@ function Results({
         style={[styles.robotContainer, getRobotContainerAnimation(scrollY)]}
       >
         <RobotFeedback
+          animate
           speechBubbleOpacity={getSpeechBubbleOpacity(scrollY)}
           facialExpressionType={getRobotFacialExpression(
             numberOfCorrectAnswers
