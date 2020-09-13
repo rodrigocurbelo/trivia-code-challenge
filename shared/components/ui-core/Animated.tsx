@@ -1,8 +1,24 @@
 import React, { ReactNode } from 'react'
-import { G, Path, Ellipse, PathProps, EllipseProps } from 'react-native-svg'
+import {
+  G,
+  Path,
+  Ellipse,
+  PathProps,
+  EllipseProps,
+  rgbaArray,
+} from 'react-native-svg'
 import { Animated, StyleProp } from 'react-native'
 
-interface Props extends PathProps, EllipseProps {
+// SimpleSpread<L, R> is a simplified version of what happens when you
+// do an object spread like {...left, ...right} where left is of type L and
+// right is of type R.  It is the type R, with any properties on L that
+// don't exist in R.  (It doesn't work if a key in L is an optional property in
+// R, which is why this is simplified)
+type SimpleSpread<L, R> = R & Pick<L, Exclude<keyof L, keyof R>>
+type SvgElementsUsed = SimpleSpread<EllipseProps, PathProps>
+
+interface Props {
+  fill?: Animated.AnimatedInterpolation | string | rgbaArray
   style?: StyleProp<any>
   children?: ReactNode
 }
@@ -12,7 +28,7 @@ interface Props extends PathProps, EllipseProps {
 const createAnimated = (component: React.ComponentClass) => {
   const Comp = Animated.createAnimatedComponent(component)
 
-  return (props: Props) => <Comp {...props} />
+  return (props: SimpleSpread<SvgElementsUsed, Props>) => <Comp {...props} />
 }
 
 export const AnimatedPath = createAnimated(Path)

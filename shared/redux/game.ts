@@ -7,9 +7,14 @@ import { GameData, Question } from '../types/GameData'
 import { navigate } from '../routerService'
 import { Routes } from '../enums/routes'
 
+const SET_NETWORK_ERROR = 'game/SET_NETWORK_ERROR'
 const START_NEW_GAME = 'game/START_NEW_GAME'
 const ANSWER_QUESTION = 'game/ANSWER_QUESTION'
 const ATTEMPT_TO_FETCH_DATA = 'game/ATTEMPT_TO_FETCH_DATA'
+
+interface SetNetworkError extends Action {
+  type: 'game/SET_NETWORK_ERROR'
+}
 
 interface LoadDataAction extends Action {
   type: 'game/START_NEW_GAME'
@@ -36,19 +41,29 @@ type startNewGameReturnType = ThunkAction<
 >
 
 export const startNewGame = (): startNewGameReturnType => {
-  return (dispatch: Dispatch<LoadDataAction | AttemptToFetchData>) => {
+  return (
+    dispatch: Dispatch<LoadDataAction | AttemptToFetchData | SetNetworkError>
+  ) => {
     dispatch({
       type: ATTEMPT_TO_FETCH_DATA,
     })
 
-    return fetchGameData().then((data: GameData) => {
-      dispatch({
-        type: START_NEW_GAME,
-        payload: data.results,
-      })
+    return fetchGameData().then(
+      (data: GameData) => {
+        dispatch({
+          type: START_NEW_GAME,
+          payload: data.results,
+        })
 
-      navigate(Routes.MultipleOption, { questionIndex: 0 })
-    })
+        navigate(Routes.MultipleOption, { questionIndex: 0 })
+      },
+      () => {
+        navigate(Routes.NoInternet)
+        dispatch({
+          type: SET_NETWORK_ERROR,
+        })
+      }
+    )
   }
 }
 
@@ -73,7 +88,9 @@ export interface DispatchProps {
   ) => AnswerQuestionAction
 }
 
-export type ActionTypes = LoadDataAction & AnswerQuestionAction
+export type ActionTypes = LoadDataAction &
+  AnswerQuestionAction &
+  SetNetworkError
 
 interface State {
   data: Question[]
@@ -113,6 +130,12 @@ export default function (state = initialState, action: ActionTypes): State {
           ...state.answers,
           [action.payload.questionIndex]: action.payload.answer,
         },
+      }
+
+    case SET_NETWORK_ERROR:
+      return {
+        ...state,
+        stillFetchingData: false,
       }
 
     default:

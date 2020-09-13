@@ -1,5 +1,6 @@
 export enum Routes {
   Home = 'Home',
-  MultipleOption = 'MultipleOption',
   Results = 'Results',
+  NoInternet = 'NoInternet',
+  MultipleOption = 'MultipleOption',
 }
