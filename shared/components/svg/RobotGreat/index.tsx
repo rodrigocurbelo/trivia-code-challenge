@@ -106,7 +106,7 @@ export default function RobotGreat({ animate = false }: Props) {
         d="M88 120.5V120.5C93.4372 116.573 100.716 116.347 106.386 119.928L106.5 120"
         style={getEyesAnimation(eyesAnimatedValue, [0, -5])}
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
 
       {/* Left eyebrow */}
@@ -114,14 +114,14 @@ export default function RobotGreat({ animate = false }: Props) {
         d="M118 120.5V120.5C123.437 116.573 130.716 116.347 136.386 119.928L136.5 120"
         style={getEyesAnimation(eyesAnimatedValue, [0, -5])}
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
 
       {/* Mouth */}
       <Path
         d="M130 161V161C120.905 167.634 108.673 168.016 99.1813 161.962L99 161.846"
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
     </G>
   )

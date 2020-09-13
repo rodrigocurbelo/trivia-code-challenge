@@ -87,3 +87,35 @@ export const getTranslateXStyles = (
     ],
   }
 }
+
+export const getMehPupilsTransform = (animatedValue: Animated.Value) => {
+  const snapshot = 7
+  const radius = 4
+
+  const inputRange = []
+  const outputXRange = []
+  const outputYRange = []
+
+  for (let i = 0; i <= snapshot; ++i) {
+    const inputValue = i / snapshot
+
+    inputRange.push(inputValue)
+    outputXRange.push(-Math.sin(inputValue * Math.PI * 2) * radius)
+    outputYRange.push(Math.cos(inputValue * Math.PI * 2) * radius - 3)
+  }
+
+  return [
+    {
+      translateX: animatedValue.interpolate({
+        inputRange: inputRange,
+        outputRange: outputXRange,
+      }),
+    },
+    {
+      translateY: animatedValue.interpolate({
+        inputRange: inputRange,
+        outputRange: outputYRange,
+      }),
+    },
+  ]
+}

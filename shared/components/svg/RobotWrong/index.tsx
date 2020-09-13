@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { G, Path, Ellipse } from 'react-native-svg'
 
 import theme from '../../../theme'
@@ -57,18 +57,22 @@ export default function RobotWrong({}: Props) {
       <Path
         d="M88 120.498V120.498C93.4671 116.568 100.77 116.341 106.47 119.925L106.587 119.998"
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
 
       {/* Right eyebrow */}
       <Path
         d="M136.5 127.5V127.5C131.063 131.427 123.784 131.653 118.114 128.072L118 128"
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
 
       {/* Mouth */}
-      <Path d="M111.5 158L124 164" stroke="#0F0F0F" strokeWidth="5" />
+      <Path
+        d="M111.5 158L124 164"
+        stroke={theme.robot.facialFeaturesColor}
+        strokeWidth={5}
+      />
     </G>
   )
 }

@@ -73,7 +73,7 @@ export default function RobotMenuFace() {
         style={getEyesAnimation(eyesAnimatedValue, [0, -7])}
         d="M124.727 144.571L125.646 143.908C131.271 139.851 138.796 139.617 144.661 143.317L145.75 144.003"
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
 
       {/* Right eyebrow */}
@@ -81,7 +81,7 @@ export default function RobotMenuFace() {
         style={getEyesAnimation(eyesAnimatedValue, [0, -7])}
         d="M158.818 144.571L159.737 143.908C165.362 139.851 172.887 139.617 178.752 143.317L179.841 144.003"
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
 
       {/* Eyes */}
@@ -133,7 +133,7 @@ export default function RobotMenuFace() {
       <Path
         d="M172.454 190.536V190.536C162.116 198.067 148.222 198.501 137.434 191.629L137.227 191.497"
         stroke={theme.robot.facialFeaturesColor}
-        strokeWidth="5"
+        strokeWidth={5}
       />
     </G>
   )
