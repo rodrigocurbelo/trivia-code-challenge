@@ -1,5 +1,5 @@
 export enum FacialExpression {
-  Huh,
+  Wrong,
   Meh,
   Great,
 }

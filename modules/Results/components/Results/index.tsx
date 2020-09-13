@@ -92,7 +92,6 @@ function Results({
       >
         <RobotFeedback
           animate
-          shakeHead
           speechBubbleOpacity={getSpeechBubbleOpacity(scrollY)}
           facialExpressionType={getRobotFacialExpression(
             numberOfCorrectAnswers

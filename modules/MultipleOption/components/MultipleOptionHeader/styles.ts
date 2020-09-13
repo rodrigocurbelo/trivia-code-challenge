@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     height: windowHeight / 3,
   },
-  robotHuh: {
+  robotWrong: {
     top: 0,
     position: 'absolute',
     transform: [{ rotate: 100 }],

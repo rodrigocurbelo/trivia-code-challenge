@@ -34,7 +34,7 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
     []
   )
 
-  const [robotHuhXAnimatedValue, robotGreatXAnimatedValue] = useMemo(
+  const [robotWrongXAnimatedValue, robotGreatXAnimatedValue] = useMemo(
     () => [new Animated.Value(windowWidth), new Animated.Value(-robotsXOffset)],
     []
   )
@@ -47,13 +47,18 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
 
       if (answerType === AnswerType.Wrong) {
         animateTiming(
-          robotHuhXAnimatedValue,
+          robotWrongXAnimatedValue,
           windowWidth - robotsXOffset,
           400,
           200,
           false
         ).start(() => {
-          animateTiming(robotHuhXAnimatedValue, windowWidth, 400, 1000).start()
+          animateTiming(
+            robotWrongXAnimatedValue,
+            windowWidth,
+            400,
+            1000
+          ).start()
         })
       } else if (answerType === AnswerType.Correct) {
         animateTiming(robotGreatXAnimatedValue, -50, 400, 200).start(() => {
@@ -93,10 +98,10 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
       </Animated.View>
 
       <Animated.View
-        style={[styles.robotHuh, { left: robotHuhXAnimatedValue }]}
+        style={[styles.robotWrong, { left: robotWrongXAnimatedValue }]}
       >
         <RobotFeedback
-          facialExpressionType={FacialExpression.Huh}
+          facialExpressionType={FacialExpression.Wrong}
           hideSpeechBubble
         />
       </Animated.View>

@@ -3,7 +3,7 @@ import { Animated } from 'react-native'
 import Svg, { G, Path } from 'react-native-svg'
 
 import theme from '../../../theme'
-import RobotHuh, { huhTextPathDeclaration } from '../RobotHuh'
+import RobotWrong, { WrongTextPathDeclaration } from '../RobotWrong'
 import RobotGreat, { greatTextPathDeclaration } from '../RobotGreat'
 import RobotMeh, { mehTextPathDeclaration } from '../RobotMeh'
 import { AnimatedGroup, AnimatedPath } from '../../ui-core'
@@ -11,13 +11,13 @@ import { FacialExpression } from '../../../enums/facialExpression'
 import { animateTiming, getTranslateXStyles } from '../../../helpers/animations'
 
 const textPathDefinitions = {
-  [FacialExpression.Huh]: huhTextPathDeclaration,
   [FacialExpression.Meh]: mehTextPathDeclaration,
+  [FacialExpression.Wrong]: WrongTextPathDeclaration,
   [FacialExpression.Great]: greatTextPathDeclaration,
 }
 
 const faces = {
-  [FacialExpression.Huh]: RobotHuh,
+  [FacialExpression.Wrong]: RobotWrong,
   [FacialExpression.Meh]: RobotMeh,
   [FacialExpression.Great]: RobotGreat,
 }
@@ -37,12 +37,12 @@ export default function RobotFeedback({
 }: Props) {
   const headShakeAnimatedValue = useMemo(() => new Animated.Value(0), [])
 
-  const Face: typeof RobotGreat | typeof RobotHuh | typeof RobotMeh =
+  const Face: typeof RobotGreat | typeof RobotWrong | typeof RobotMeh =
     faces[facialExpressionType]
 
   useEffect(() => {
     if (animate) {
-      if (facialExpressionType === FacialExpression.Huh) {
+      if (facialExpressionType === FacialExpression.Wrong) {
         const triggerHeadShake = (toValue: number) => {
           animateTiming(headShakeAnimatedValue, toValue, 400, 0, true).start(
             () => {
