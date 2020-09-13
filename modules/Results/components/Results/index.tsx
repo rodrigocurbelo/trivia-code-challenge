@@ -7,6 +7,7 @@ import {
   ScrollView,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  Platform,
 } from 'react-native'
 
 import styles from './styles'
@@ -18,12 +19,15 @@ import { getRobotFacialExpression } from '../../../../shared/helpers/robotFacial
 import { mapDispatchToProps, mapStateToProps } from '../..'
 import { RESULTS_SCROLL_ANIMATIONS_END_IN_PX } from '../../../../shared/constants/resultsAnimations'
 import {
+  finishUpScrollAnimation,
+  getScrollEventsForHeaderAnimation,
+} from '../../../../shared/helpers/scroll'
+import {
   PlayAgainButton,
   LabelAndTitleHeader,
 } from '../../../../shared/components/ui-core'
 import {
   getRobotContainerAnimation,
-  finishUpScrollAnimation,
   getSpeechBubbleOpacity,
 } from '../../helpers/animations'
 
@@ -32,6 +36,8 @@ interface OwnProps extends NavigationProps {}
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
+
+// let ignoreNextEvent = false
 
 function Results({
   startNewGame,
@@ -44,13 +50,13 @@ function Results({
     (answer, i) => data[i].correct_answer === answer
   ).length
 
-  const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    finishUpScrollAnimation(
-      event?.nativeEvent?.contentOffset?.y,
-      scrollY,
-      scrollViewRef
-    )
-  }
+  // const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  //   finishUpScrollAnimation(
+  //     event?.nativeEvent?.contentOffset?.y,
+  //     scrollY,
+  //     scrollViewRef
+  //   )
+  // }
 
   return (
     <View style={styles.container}>
@@ -69,11 +75,42 @@ function Results({
         style={styles.scrollView}
         scrollEventThrottle={16}
         contentContainerStyle={styles.scrollViewContainer}
-        onMomentumScrollEnd={onScrollEnd}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
+        {...getScrollEventsForHeaderAnimation(scrollY, scrollViewRef)}
+        // onMomentumScrollEnd={(event) => {
+        //   if (ignoreNextEvent) {
+        //     ignoreNextEvent = false
+        //   } else {
+        //     console.log(event)
+        //     console.log(
+        //       Platform.OS,
+        //       'triggered from onMomentumScrollEnd.',
+        //       Date.now()
+        //     )
+        //     onScrollEnd(event)
+        //   }
+        // }}
+        // // onMomentumScrollEnd={() => {
+        // //   console.log(Platform.OS, 'onMomentumScrollEnd triggered.', Date.now())
+        // // }}
+        // onScrollEndDrag={(event) => {
+        //   if (Platform.OS === 'ios') {
+        //     if (event.nativeEvent.velocity?.y === 0) {
+        //       onScrollEnd(event)
+        //       console.log(
+        //         Platform.OS,
+        //         'triggered from onScrollEndDrag.',
+        //         Date.now()
+        //       )
+        //     } else {
+        //       ignoreNextEvent = true
+        //       console.log(Platform.OS, 'propagation stopped')
+        //     }
+        //   }
+        // }}
+        // onScroll={Animated.event(
+        //   [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        //   { useNativeDriver: false }
+        // )}
       >
         {Object.keys(answers).map((questionIndex: string) => (
           <Result

@@ -43,22 +43,3 @@ export function getSpeechBubbleOpacity(
     extrapolate: 'clamp',
   })
 }
-
-export function finishUpScrollAnimation(
-  offsetY: number,
-  scrollY: Animated.Value,
-  scrollViewRef: React.RefObject<ScrollView>
-): void {
-  if (offsetY < RESULTS_SCROLL_ANIMATIONS_END_IN_PX) {
-    scrollY.stopAnimation(() => {
-      scrollViewRef.current?.scrollTo({
-        animated: true,
-        x: 0,
-        y:
-          offsetY < RESULTS_SCROLL_ANIMATIONS_END_IN_PX / 2
-            ? 0
-            : RESULTS_SCROLL_ANIMATIONS_END_IN_PX,
-      })
-    })
-  }
-}
