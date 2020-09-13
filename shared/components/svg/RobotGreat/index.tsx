@@ -69,10 +69,10 @@ export default function RobotGreat({ animate = false }: Props) {
 
         {/* Left eye pupil */}
         <AnimatedEllipse
-          cx="96.0454"
-          cy="143.5"
-          rx="4.01878"
-          ry="3.99988"
+          cx={96.0454}
+          cy={143.5}
+          rx={4.01878}
+          ry={3.99988}
           fill={theme.robot.headColor}
           style={{
             transform: pupilsXYAnimatedValue.getTranslateTransform(),
@@ -90,10 +90,10 @@ export default function RobotGreat({ animate = false }: Props) {
 
         {/* Right eye pupil */}
         <AnimatedEllipse
-          cx="128.196"
-          cy="143.5"
-          rx="4.01878"
-          ry="3.99988"
+          cx={128.196}
+          cy={143.5}
+          rx={4.01878}
+          ry={3.99988}
           fill={theme.robot.headColor}
           style={{
             transform: pupilsXYAnimatedValue.getTranslateTransform(),
@@ -104,7 +104,7 @@ export default function RobotGreat({ animate = false }: Props) {
       {/* Right eyebrow */}
       <AnimatedPath
         d="M88 120.5V120.5C93.4372 116.573 100.716 116.347 106.386 119.928L106.5 120"
-        style={getEyesAnimation(eyesAnimatedValue, [0, -7])}
+        style={getEyesAnimation(eyesAnimatedValue, [0, -5])}
         stroke={theme.robot.facialFeaturesColor}
         strokeWidth="5"
       />
@@ -112,7 +112,7 @@ export default function RobotGreat({ animate = false }: Props) {
       {/* Left eyebrow */}
       <AnimatedPath
         d="M118 120.5V120.5C123.437 116.573 130.716 116.347 136.386 119.928L136.5 120"
-        style={getEyesAnimation(eyesAnimatedValue, [0, -7])}
+        style={getEyesAnimation(eyesAnimatedValue, [0, -5])}
         stroke={theme.robot.facialFeaturesColor}
         strokeWidth="5"
       />

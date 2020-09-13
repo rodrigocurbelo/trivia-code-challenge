@@ -7,15 +7,15 @@ import styles from './styles'
 import theme from '../../../../theme'
 import BooleanButton from '../BooleanButton'
 import { BooleanOptionType } from '../../../../enums/game'
-import { animateTiming } from '../../../../helpers/animations'
+import { getAnimatedBackground } from './helpers/animations'
+import {
+  animateTiming,
+  getSimpleInterpolation,
+} from '../../../../helpers/animations'
 import {
   CLICKED_OPTION_DURATION,
   ALTERNATING_OPTIONS_DURATION,
 } from '../../../../constants/MultipleOptionAnimations'
-import {
-  getAnimatedInterpolation,
-  getAnimatedBackground,
-} from './helpers/animations'
 
 interface Props {
   onPress: (selected: string) => void
@@ -89,7 +89,9 @@ export default function TrueFalseButtons({
           onPress={() => onPress(BooleanOptionType.True)}
           disabled={!!answerForCurrentQuestion}
           style={{
-            transform: [{ scale: getAnimatedInterpolation(animatedTrueValue) }],
+            transform: [
+              { scale: getSimpleInterpolation(animatedTrueValue, [1, 1.1]) },
+            ],
             backgroundColor: getAnimatedBackground(
               animatedTrueValue,
               theme.buttons.boolean.trueBackgroundColor
@@ -106,7 +108,7 @@ export default function TrueFalseButtons({
           disabled={!!answerForCurrentQuestion}
           style={{
             transform: [
-              { scale: getAnimatedInterpolation(animatedFalseValue) },
+              { scale: getSimpleInterpolation(animatedFalseValue, [1, 1.1]) },
             ],
             backgroundColor: getAnimatedBackground(
               animatedFalseValue,

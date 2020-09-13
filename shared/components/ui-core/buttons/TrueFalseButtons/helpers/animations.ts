@@ -11,10 +11,3 @@ export const getAnimatedBackground = (
     outputRange: [theme.buttons.boolean.defaultBackgroundColor, animateTo],
   })
 }
-
-export const getAnimatedInterpolation = (animatedValue: Animated.Value) => {
-  return animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.1],
-  })
-}

@@ -65,3 +65,25 @@ export const getEyesAnimation = (
     },
   ],
 })
+
+export const getSimpleInterpolation = (
+  animatedValue: Animated.Value,
+  outputRange: number[]
+) => {
+  return animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: outputRange,
+    extrapolate: 'clamp',
+  })
+}
+
+export const getTranslateXStyles = (
+  animatedValue: Animated.Value,
+  outputRange: number[]
+) => {
+  return {
+    transform: [
+      { translateX: getSimpleInterpolation(animatedValue, outputRange) },
+    ],
+  }
+}

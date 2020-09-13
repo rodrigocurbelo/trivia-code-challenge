@@ -11,5 +11,6 @@ export function getRobotFacialExpression(numberOfCorrectAnswers: number) {
     robotFacialExpression = FacialExpression.Great
   }
 
+  return FacialExpression.Huh
   return robotFacialExpression
 }
