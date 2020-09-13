@@ -9,7 +9,7 @@ export default StyleSheet.create({
     backgroundColor: theme.layout.backgroundColor,
   },
   scrollView: {
-    marginTop: 10,
+    marginTop: 25,
   },
   scrollViewContainer: {
     paddingTop: 220,

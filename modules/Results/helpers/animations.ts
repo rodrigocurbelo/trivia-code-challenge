@@ -1,13 +1,16 @@
 import { ScrollView, Dimensions, Animated } from 'react-native'
 import { RESULTS_SCROLL_ANIMATIONS_END_IN_PX } from '../../../shared/constants/resultsAnimations'
+import { isIPhoneX } from '../../../shared/constants/device'
 
 const windowWidth = Dimensions.get('window').width
 
 export function getRobotContainerAnimation(scrollY: Animated.Value) {
+  const topTo = isIPhoneX ? -50 : -65
+
   return {
     top: scrollY.interpolate({
       inputRange: [0, RESULTS_SCROLL_ANIMATIONS_END_IN_PX],
-      outputRange: [90, -65],
+      outputRange: [90, topTo],
       extrapolate: 'clamp',
     }),
     left: scrollY.interpolate({

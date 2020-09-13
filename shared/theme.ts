@@ -68,7 +68,7 @@ export default {
       falseBackgroundColor: '#D34819',
     },
     playAgain: {
-      height: 55,
+      height: 60,
       backgroundColor: primaryColor,
     },
   },
