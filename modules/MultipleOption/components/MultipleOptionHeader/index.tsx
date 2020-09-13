@@ -4,6 +4,7 @@ import { View, Dimensions, Animated, Text } from 'react-native'
 import styles from './styles'
 import theme from '../../../../shared/theme'
 import { RobotFeedback } from '../../../../shared/components/svg'
+import { FacialExpression } from '../../../../shared/enums/facialExpression'
 import LabelAndTitleHeader, {
   Props as LabelAndTitleHeaderProps,
 } from '../../../../shared/components/ui-core/texts/LabelAndTitleHeader'
@@ -12,7 +13,6 @@ import {
   opacityAndScaleAnimation,
   opacityAndTranslateYAnimation,
 } from '../../../../shared/helpers/animations'
-import { FacialExpression } from '../../../../shared/components/svg/RobotFeedback'
 
 export enum AnswerType {
   Wrong,
@@ -56,7 +56,7 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
           animateTiming(robotHuhXAnimatedValue, windowWidth, 400, 1000).start()
         })
       } else if (answerType === AnswerType.Correct) {
-        animateTiming(robotGreatXAnimatedValue, -40, 400, 200).start(() => {
+        animateTiming(robotGreatXAnimatedValue, -50, 400, 200).start(() => {
           animateTiming(
             robotGreatXAnimatedValue,
             -robotsXOffset,

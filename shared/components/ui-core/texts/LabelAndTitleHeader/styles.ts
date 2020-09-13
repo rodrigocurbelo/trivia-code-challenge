@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     minHeight: theme.general.spacing * 7,
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
+    paddingHorizontal: '8%',
   },
   spacingOnTop: {
     marginTop: theme.general.spacing * 8,

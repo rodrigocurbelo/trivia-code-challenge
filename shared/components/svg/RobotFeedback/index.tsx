@@ -1,25 +1,30 @@
 import * as React from 'react'
-import Svg, { G, Path, Defs } from 'react-native-svg'
+import { Animated } from 'react-native'
+import Svg, { G, Path } from 'react-native-svg'
 
 import theme from '../../../theme'
-import RobotHuh from '../RobotHuh'
-import RobotGreat from '../RobotGreat'
-import RobotMeh from '../RobotMeh'
+import RobotHuh, { huhTextPathDeclaration } from '../RobotHuh'
+import RobotGreat, { greatTextPathDeclaration } from '../RobotGreat'
+import RobotMeh, { mehTextPathDeclaration } from '../RobotMeh'
+import { AnimatedGroup } from '../../ui-core'
+import { FacialExpression } from '../../../enums/facialExpression'
 
-export enum FacialExpression {
-  Huh,
-  Meh,
-  Great,
+const textPathDefinitions = {
+  [FacialExpression.Huh]: huhTextPathDeclaration,
+  [FacialExpression.Meh]: mehTextPathDeclaration,
+  [FacialExpression.Great]: greatTextPathDeclaration,
 }
 
 interface Props {
   hideSpeechBubble?: boolean
   facialExpressionType: FacialExpression
+  speechBubbleOpacity?: number | Animated.AnimatedInterpolation
 }
 
 export default function RobotFeedback({
-  facialExpressionType,
   hideSpeechBubble = false,
+  speechBubbleOpacity,
+  facialExpressionType,
 }: Props) {
   let FaceAndSpeechText = RobotHuh
 
@@ -37,14 +42,23 @@ export default function RobotFeedback({
       viewBox="0 0 240 219"
     >
       <G>
-        {/* Speech bubble background */}
+        {/* Speech bubble */}
         {!hideSpeechBubble && (
-          <Path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M141.5 12a5.5 5.5 0 00-5.5 5.5v54a5.5 5.5 0 005.5 5.5h20v17l24-17h35a5.5 5.5 0 005.5-5.5v-54a5.5 5.5 0 00-5.5-5.5h-79z"
-            fill="#fff"
-          />
+          <AnimatedGroup style={{ opacity: speechBubbleOpacity }}>
+            {/* Speech bubble background */}
+            <Path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M141.5 12a5.5 5.5 0 00-5.5 5.5v54a5.5 5.5 0 005.5 5.5h20v17l24-17h35a5.5 5.5 0 005.5-5.5v-54a5.5 5.5 0 00-5.5-5.5h-79z"
+              fill="#fff"
+            />
+
+            {/* Speech bubble text */}
+            <Path
+              d={textPathDefinitions[facialExpressionType]}
+              fill="#212121"
+            />
+          </AnimatedGroup>
         )}
 
         {/* Antenna's wire */}
@@ -99,7 +113,7 @@ export default function RobotFeedback({
           fill="#2E425A"
         />
 
-        <FaceAndSpeechText hideSpeechBubbleText={hideSpeechBubble} />
+        <FaceAndSpeechText />
       </G>
     </Svg>
   )

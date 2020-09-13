@@ -8,8 +8,15 @@ export default StyleSheet.create({
     paddingTop: theme.layout.paddingTop,
     backgroundColor: theme.layout.backgroundColor,
   },
-  imageContainer: {
-    paddingTop: theme.general.spacing * 2,
+  scrollView: {
+    marginTop: 10,
+  },
+  scrollViewContainer: {
+    paddingTop: 220,
+  },
+  robotContainer: {
+    position: 'absolute',
     alignItems: 'center',
+    paddingTop: theme.general.spacing * 2,
   },
 })

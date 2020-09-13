@@ -10,9 +10,6 @@ import {
   StartButton,
   LabelAndTitleHeader,
 } from '../../../../shared/components/ui-core'
-import RobotFeedback, {
-  FacialExpression,
-} from '../../../../shared/components/svg/RobotFeedback'
 
 interface OwnProps extends NavigationProps {}
 
