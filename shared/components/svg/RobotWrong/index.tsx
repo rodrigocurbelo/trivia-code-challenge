@@ -5,6 +5,8 @@ import theme from '../../../theme'
 import { AnimatedGroup } from '../../ui-core'
 
 interface Props {
+  // When using RobotWrong, the Robot's head will be shaking, so there's no
+  // need to animate the actual facial expression.
   animate?: boolean
 }
 

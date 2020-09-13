@@ -28,14 +28,23 @@ export default function RobotMeh({}: Props) {
 
   useEffect(() => {
     const triggerExpression = () => {
+      // When the animation start, it'll slowly move the facial features up,
+      // pretending to inhale air. While the pupils go 3/4 around a circle,
+      // pretending to roll its eyes.
       Animated.parallel([
         animateTiming(sighAnimatedValue, 1, 1000, 500, true),
         animateTiming(pupilsAnimatedValue, 0.75, 1000, 500, true),
       ]).start(() => {
+        // Once the eye-rolling and inhaling effect is finished, it comes
+        // back to the default value much quicker. By "exhaling" and
+        // finishing the pupils rotation ("looking" back down)
         Animated.parallel([
           animateTiming(sighAnimatedValue, 0, 500, 700, true),
           animateTiming(pupilsAnimatedValue, 1, 500, 700, true),
         ]).start(() => {
+          // The pupils simply go one way around, but at the time it
+          // finishes the circular movement, we want the value to be 0,
+          // not 1, so we can easily repeat the animation.
           pupilsAnimatedValue.setValue(0)
           triggerExpression()
         })
@@ -45,6 +54,7 @@ export default function RobotMeh({}: Props) {
     triggerExpression()
   }, [])
 
+  // There's no need to recalculate this at any point.
   const pupilsTransform = useMemo(
     () => getMehPupilsTransform(pupilsAnimatedValue),
     []

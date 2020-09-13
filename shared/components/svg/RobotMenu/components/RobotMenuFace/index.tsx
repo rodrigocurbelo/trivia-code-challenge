@@ -24,6 +24,7 @@ export default function RobotMenuFace() {
   } = ROBOT_MENU_TIMING
 
   useEffect(() => {
+    // We make the Robot look to the top right speech bubble
     animateTiming(
       pupilsXYAnimatedValue,
       { x: 1, y: -3 },
@@ -31,6 +32,7 @@ export default function RobotMenuFace() {
       lookAtBubble.upDelay,
       true
     ).start(() => {
+      // We make the Robot look to the bottom left speech bubble
       animateTiming(
         pupilsXYAnimatedValue,
         { x: -1, y: 3 },
@@ -38,7 +40,9 @@ export default function RobotMenuFace() {
         lookAtBubble.downDelay,
         true
       ).start(() => {
+        // We don't want to repeat anything after this point of the animation.
         const triggerEyes = (toValue: number, delay = 0) => {
+          // Simply make the eyes/facial features go up and down.
           animateTiming(
             eyesAnimatedValue,
             toValue,
@@ -51,8 +55,12 @@ export default function RobotMenuFace() {
         const triggerPupils = (lookAtUser: boolean) => {
           animateTiming(
             pupilsXYAnimatedValue,
+            // Looks either directly at the user or downwards toward the CTA
             { y: lookAtUser ? 0 : 3, x: 0 },
             lookAtButton.duration,
+            // It spends a longer time looking at the CTA than looking at the
+            // user, this makes it seem like the robot is "inviting" the user
+            // to press the CTA.
             lookAtUser
               ? lookAtButton.lookAtButtonDelay
               : lookAtButton.lookAtUserDelay,
@@ -61,6 +69,7 @@ export default function RobotMenuFace() {
         }
 
         triggerPupils(true)
+        // It delays the eye movement until the robot starts looking at the CTA
         triggerEyes(1, eyes.bouncingDelay)
       })
     })

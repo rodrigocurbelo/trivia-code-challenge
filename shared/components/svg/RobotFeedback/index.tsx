@@ -10,6 +10,9 @@ import { AnimatedGroup, AnimatedPath } from '../../ui-core'
 import { FacialExpression } from '../../../enums/facialExpression'
 import { animateTiming, getTranslateXStyles } from '../../../helpers/animations'
 
+// We handle the speech bubble text this way so the robots can be just the
+// facial expression. This, makes the facial expression fully agnostic to
+// properties like hideSpeechBubble or speechBubbleOpacity
 const textPathDefinitions = {
   [FacialExpression.Meh]: mehTextPathDeclaration,
   [FacialExpression.Wrong]: WrongTextPathDeclaration,
@@ -17,13 +20,17 @@ const textPathDefinitions = {
 }
 
 const faces = {
-  [FacialExpression.Wrong]: RobotWrong,
   [FacialExpression.Meh]: RobotMeh,
+  [FacialExpression.Wrong]: RobotWrong,
   [FacialExpression.Great]: RobotGreat,
 }
 
 interface Props {
+  // If animate = true, both the Robot's head and facial expression will be
+  // animated according to facialExpressionType
   animate?: boolean
+  // It will remove the speech bubble, without animation.
+  // To animate, look at speechBubbleOpacity
   hideSpeechBubble?: boolean
   facialExpressionType: FacialExpression
   speechBubbleOpacity?: number | Animated.AnimatedInterpolation

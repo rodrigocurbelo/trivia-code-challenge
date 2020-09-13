@@ -41,11 +41,16 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
 
   useEffect(() => {
     if (answerType !== AnswerType.NotAnsweredYet) {
+      // If the current question has been answered, then it hides the
+      // question and displays feedback after the question is no longer
+      // visible.
       animateTiming(headerAnimatedValue, 1, 200).start(() => {
         animateTiming(rightOrWrongAnimatedValue, 1, 200, 0, true).start()
       })
 
       if (answerType === AnswerType.Wrong) {
+        // Moves the judgemental robot to a position where it's visible and
+        // quickly hides it again.
         animateTiming(
           robotWrongXAnimatedValue,
           windowWidth - robotsXOffset,
@@ -61,6 +66,8 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
           ).start()
         })
       } else if (answerType === AnswerType.Correct) {
+        // Moves the happy robot to a position where it's visible and quickly
+        // hides it again.
         animateTiming(robotGreatXAnimatedValue, -50, 400, 200).start(() => {
           animateTiming(
             robotGreatXAnimatedValue,
@@ -71,6 +78,9 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
         })
       }
     } else {
+      // If the current question hasn't been answered, then it brings back
+      // the header to the default value (where the questions is visible
+      // and feedback is not)
       Animated.parallel([
         animateTiming(headerAnimatedValue, 0, 200),
         animateTiming(rightOrWrongAnimatedValue, 0, 200, 0, true),
@@ -80,6 +90,8 @@ export default function MultipleOptionHeader({ answerType, ...props }: Props) {
 
   let correctWrongText: string = ''
 
+  // When answerType === AnswerType.notAnsweredYet, the text has to be ''.
+  // That way, you don't see it overlap the question when it's being hidden.
   if (answerType === AnswerType.Correct) {
     correctWrongText = 'Correct!'
   } else if (answerType === AnswerType.Wrong) {

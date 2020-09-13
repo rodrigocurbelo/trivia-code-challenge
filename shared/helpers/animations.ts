@@ -88,16 +88,25 @@ export const getTranslateXStyles = (
   }
 }
 
+// In order to roll the eyes, we need to have several break points around
+// the circumference (In this case, the robot's eyes). If we only had the
+// bare minimum (4, one on each side) the animation would look unnatural.
 export const getMehPupilsTransform = (animatedValue: Animated.Value) => {
-  const snapshot = 7
   const radius = 4
+  // With this radius, 7 break points makes it look natural enough.
+  const numberOfPointsInCircumference = 7
 
   const inputRange = []
   const outputXRange = []
   const outputYRange = []
 
-  for (let i = 0; i <= snapshot; ++i) {
-    const inputValue = i / snapshot
+  for (
+    let breakPointIndex = 0;
+    breakPointIndex <= numberOfPointsInCircumference;
+    ++breakPointIndex
+  ) {
+    // The inputs for both axis are distributed equally.
+    const inputValue = breakPointIndex / numberOfPointsInCircumference
 
     inputRange.push(inputValue)
     outputXRange.push(-Math.sin(inputValue * Math.PI * 2) * radius)

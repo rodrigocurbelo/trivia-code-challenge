@@ -7,6 +7,8 @@ interface Props extends PathProps, EllipseProps {
   children?: ReactNode
 }
 
+// The whole point of this HOC is to make sure that we can use transform and
+// other properties to animate svg elements, hence the StyleProp<any>.
 const createAnimated = (component: React.ComponentClass) => {
   const Comp = Animated.createAnimatedComponent(component)
 

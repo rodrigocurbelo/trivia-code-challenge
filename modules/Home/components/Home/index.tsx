@@ -21,8 +21,9 @@ export default function Home({
   startNewGame,
   game: { data, answers, stillFetchingData },
 }: Props) {
-  const homeEntryAnimatedValue = useMemo(() => new Animated.Value(0), [])
+  // Disables the start button if it was already pressed.
   const startButtonDisabled = stillFetchingData || (data.length && !answers[0])
+  const homeEntryAnimatedValue = useMemo(() => new Animated.Value(0), [])
 
   useEffect(() => {
     animateTiming(homeEntryAnimatedValue, 1, 300, 2300, true).start()

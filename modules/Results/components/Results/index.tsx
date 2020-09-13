@@ -1,14 +1,7 @@
 import React, { useMemo } from 'react'
 import _ from 'lodash'
 import he from 'he'
-import {
-  View,
-  Animated,
-  ScrollView,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  Platform,
-} from 'react-native'
+import { View, Animated, ScrollView } from 'react-native'
 
 import styles from './styles'
 import Result from '../Result'
@@ -18,17 +11,14 @@ import { RobotFeedback } from '../../../../shared/components/svg'
 import { getRobotFacialExpression } from '../../../../shared/helpers/robotFacialExpressions'
 import { mapDispatchToProps, mapStateToProps } from '../..'
 import { RESULTS_SCROLL_ANIMATIONS_END_IN_PX } from '../../../../shared/constants/resultsAnimations'
-import {
-  finishUpScrollAnimation,
-  getScrollEventsForHeaderAnimation,
-} from '../../../../shared/helpers/scroll'
+import { getScrollEventsForHeaderAnimation } from '../../../../shared/helpers/scroll'
 import {
   PlayAgainButton,
   LabelAndTitleHeader,
 } from '../../../../shared/components/ui-core'
 import {
-  getRobotContainerAnimation,
   getSpeechBubbleOpacity,
+  getRobotContainerAnimation,
 } from '../../helpers/animations'
 
 interface OwnProps extends NavigationProps {}
@@ -37,8 +27,6 @@ type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-// let ignoreNextEvent = false
-
 function Results({
   startNewGame,
   game: { stillFetchingData, data, answers },
@@ -46,17 +34,13 @@ function Results({
   const scrollY = useMemo(() => new Animated.Value(0), [])
   const scrollViewRef = React.createRef<ScrollView>()
 
-  const numberOfCorrectAnswers = Object.values(answers).filter(
-    (answer, i) => data[i].correct_answer === answer
-  ).length
-
-  // const onScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-  //   finishUpScrollAnimation(
-  //     event?.nativeEvent?.contentOffset?.y,
-  //     scrollY,
-  //     scrollViewRef
-  //   )
-  // }
+  const numberOfCorrectAnswers = useMemo(
+    () =>
+      Object.values(answers).filter(
+        (answer, i) => data[i].correct_answer === answer
+      ).length,
+    [answers]
+  )
 
   return (
     <View style={styles.container}>
@@ -73,44 +57,8 @@ function Results({
       <ScrollView
         ref={scrollViewRef}
         style={styles.scrollView}
-        scrollEventThrottle={16}
         contentContainerStyle={styles.scrollViewContainer}
         {...getScrollEventsForHeaderAnimation(scrollY, scrollViewRef)}
-        // onMomentumScrollEnd={(event) => {
-        //   if (ignoreNextEvent) {
-        //     ignoreNextEvent = false
-        //   } else {
-        //     console.log(event)
-        //     console.log(
-        //       Platform.OS,
-        //       'triggered from onMomentumScrollEnd.',
-        //       Date.now()
-        //     )
-        //     onScrollEnd(event)
-        //   }
-        // }}
-        // // onMomentumScrollEnd={() => {
-        // //   console.log(Platform.OS, 'onMomentumScrollEnd triggered.', Date.now())
-        // // }}
-        // onScrollEndDrag={(event) => {
-        //   if (Platform.OS === 'ios') {
-        //     if (event.nativeEvent.velocity?.y === 0) {
-        //       onScrollEnd(event)
-        //       console.log(
-        //         Platform.OS,
-        //         'triggered from onScrollEndDrag.',
-        //         Date.now()
-        //       )
-        //     } else {
-        //       ignoreNextEvent = true
-        //       console.log(Platform.OS, 'propagation stopped')
-        //     }
-        //   }
-        // }}
-        // onScroll={Animated.event(
-        //   [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        //   { useNativeDriver: false }
-        // )}
       >
         {Object.keys(answers).map((questionIndex: string) => (
           <Result
@@ -139,6 +87,7 @@ function Results({
       <PlayAgainButton
         onPress={startNewGame}
         disabled={
+          // Disables the play again button if it was already pressed.
           stillFetchingData || !answers[Object.keys(answers).length - 1]
         }
       >

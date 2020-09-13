@@ -33,6 +33,8 @@ export default function TrueFalseButtons({
 
   useFocusEffect(
     React.useCallback(() => {
+      // Animates both buttons in parallel, potentially inverting one of them,
+      // meaning (falseValue = 1 - trueValue)
       const animateBoth = (
         toValue: number,
         invertFalse: boolean,
@@ -57,6 +59,8 @@ export default function TrueFalseButtons({
 
       const triggerRecursiveAnimation = (toValue: number) => {
         animateBoth(toValue, true).start(() => {
+          // If the animation is supposed to stop, we make sure that it doesn't
+          // get triggered again.
           if (continueAnimating) {
             triggerRecursiveAnimation(toValue === 1 ? 0 : 1)
           }
@@ -67,6 +71,8 @@ export default function TrueFalseButtons({
         if (answerForCurrentQuestion) {
           continueAnimating = false
 
+          // Stop the animation and immediately go forward/backwards to
+          // highlight the pressed one.
           stopBoth()
           animateBoth(
             answerForCurrentQuestion === BooleanOptionType.True ? 1 : 0,
@@ -78,6 +84,8 @@ export default function TrueFalseButtons({
         }
       }
 
+      // When the screen is no longer onFocus, we make sure that the
+      // animation stops.
       return () => (continueAnimating = false)
     }, [answerForCurrentQuestion])
   )

@@ -1,6 +1,6 @@
 // TODO: use: import { StackNavigationProp } from '@react-navigation/stack';
 // see: https://github.com/react-navigation/react-navigation/issues/8399
-// For timing reasons, I'm using this hackish implementation for the time being.
+// For time-related reasons, I'm using this hackish implementation for now.
 
 import { Routes } from '../enums/routes'
 
