@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "G2iTriviaGame",
-    "slug": "G2iTriviaGame",
+    "name": "Trivia game",
+    "slug": "triviaGame",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

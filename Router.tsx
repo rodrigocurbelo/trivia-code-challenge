@@ -31,10 +31,26 @@ export default function Router() {
           },
         }}
       >
-        <Stack.Screen name={Routes.Home} component={Home} />
-        <Stack.Screen name={Routes.MultipleOption} component={MultipleOption} />
-        <Stack.Screen name={Routes.Results} component={Results} />
-        <Stack.Screen name={Routes.NoInternet} component={NoInternet} />
+        <Stack.Screen
+          name={Routes.Home}
+          component={Home}
+          options={{ gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name={Routes.MultipleOption}
+          component={MultipleOption}
+          options={{ gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name={Routes.Results}
+          component={Results}
+          options={{ gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name={Routes.NoInternet}
+          component={NoInternet}
+          options={{ gestureEnabled: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
